@@ -17,6 +17,13 @@ object List{
     case Cons(x, xs) => x * product(xs)
   }
 
+  def foldRight[A, B](ls: List[A], z: B)(f: (A, B) => B) : B = {
+    ls match {
+      case Nil => z
+      case Cons(a, b) => f(a, foldRight(b, z)(f))
+    }
+  }
+
   def apply[A](as: A*): List[A] = {
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
